@@ -1,1 +1,44 @@
+.app-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.app-body{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.expense-table{
+    display: flex;
+    flex-direction: column;
+}
+.expense-table > *{
+    display: flex;
+    flex-direction: row;
+}
+.expense-table > * > *{
+    display: inline-flex;
+    padding: 10px;
+    border: 1px solid black;
+    width : 300px;
+    max-width: 300px;
+}
+.expense-table > .no-data{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.expense-input{
+    padding: 10px;
+}
+
+.expense-input > * {
+    margin-left: 10px;
+}
+
+.expenses-total{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
