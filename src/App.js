@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import './App.css';
 import Header from "./components/header"
 import ExpenseTable from "./components/expenseTable"
 import ExpenseInput from "./components/expenseInput"
 import ExpenseTotal from "./components/expenseTotal"
+import ExchangeRates from "./components/exchangeRates"
 import Axios from "axios";
 
 function App() {
@@ -25,11 +26,12 @@ function App() {
         };
         fetchData();
         },[isLoading]);
-    const addExpense = expense => {
+    const addExpense = useCallback(expense => {
         if(rates[expense.currency])
             expense.cadValue = expense.value*(1/rates[expense.currency]).toFixed(4);
-        setExpenses([...expenses, expense]);
-    };
+        setExpenses(prevExpenses => [...prevExpenses, expense]);
+    }, [rates, setExpenses]);
+    const resetRates = useCallback(()=>setIsLoading(true), [setIsLoading]);
     return (
     <div className="app-container">
       <Header/>
@@ -39,6 +41,7 @@ function App() {
                     <ExpenseTable expenses={expenses}/>
                     <ExpenseInput addExpense={addExpense}/>
                     <ExpenseTotal expenses={expenses}/>
+                    <ExchangeRates rates={rates} resetRates={resetRates}/>
                 </div>
         }
     </div>
