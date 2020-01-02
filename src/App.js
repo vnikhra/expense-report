@@ -15,7 +15,8 @@ function App() {
     useEffect( ()=>{
         const fetchData = async()=> {
             if(isLoading){
-                const ratesCall = await Axios.get("https://api.exchangeratesapi.io/latest?base=CAD")
+                const ratesCall = await Axios.get("https://api.exchangeratesapi.io/latest?base=CAD");
+                await new Promise(resolve => setTimeout(resolve,2000));
                 setIsLoading(false);
                 if(!ratesCall.error){
                     setRates(ratesCall.data.rates);
@@ -24,7 +25,8 @@ function App() {
                 }
             }
         };
-        fetchData();
+        const fetchedData = fetchData();
+        console.log(fetchedData);
         },[isLoading]);
     const addExpense = useCallback(expense => {
         if(rates[expense.currency])
